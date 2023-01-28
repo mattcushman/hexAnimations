@@ -135,17 +135,21 @@ class CreateHexColoration(Scene):
             x = i%9
             y = i//9
             if hexgridcolor[x,y]==1:
-                c=BLUE
+                c=PURE_GREEN
             else:
-                c=RED
+                c=PURE_BLUE
             h.set_fill(c, opacity=1)
-            self.wait(0.025)
+            self.wait(0.1)
 
         self.wait()
         self.add(Line(point(0, 0),  point(-1, 0), color=WHITE))
         self.add(Line(point(18, 0), point(19, 0), color=WHITE))
         self.add(Line(point(-2, 9),  point(-1, 9), color=WHITE))
         self.add(Line(point(17, 9), point(18, 9), color=WHITE))
+        self.add(Text("Blue", color=PURE_BLUE).move_to([+1,-2.6,0]))
+        self.add(Text("Blue", color=PURE_BLUE).move_to([-1,+2.6,0]))
+        self.add(Text("Green", color= PURE_GREEN).move_to([-3.8,-1,0]))
+        self.add(Text("Green", color=PURE_GREEN).move_to([+3.8,+1,0]))
         self.wait()
         x=-1
         y=0
@@ -155,14 +159,11 @@ class CreateHexColoration(Scene):
             n+=1
             mycolor = hexcolor(hexgridcolor, x, y, d)
             rightcolor = hexcolor(hexgridcolor, x,y, d+1)
-            print(n, mycolor, rightcolor)
             if mycolor == rightcolor:
                 # straight ahead color matches color to the right.  Turn left
                 x1,y1,d = turn_left(x,y,d)
-                print("left", x,y,d, x1,y1,d)
             else:
                 x1, y1,d = turn_right(x,y,d)
-                print("right", x,y,d, x1,y1,d)
             self.add(Line(point(x,y), point(x1,y1), color=PURE_RED))
             x=x1
             y=y1
